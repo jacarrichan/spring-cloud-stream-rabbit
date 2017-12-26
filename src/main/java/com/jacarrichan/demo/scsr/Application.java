@@ -90,7 +90,19 @@ public class Application implements CommandLineRunner {
 
     // 定时轮询发送消息到 binding 为 Processor.OUTPUT
     @Bean
-    @InboundChannelAdapter(value = Processor.OUTPUT, poller = @Poller(fixedDelay = "3000", maxMessagesPerPoll = "1"))
+    @InboundChannelAdapter(value = OrderProcessor.OUTPUT_ORDER, poller = @Poller(fixedDelay = "30", maxMessagesPerPoll = "1"))
+    public MessageSource<Order> timerMessageSource2() {
+        Order appleOrder = new Order();
+        appleOrder.setOrderNum("0000001");
+        appleOrder.setNum(10);
+        appleOrder.setType("APPLE");
+        appleOrder.setCreateAt(new Date());
+        return () -> MessageBuilder.withPayload(appleOrder).build();
+    }
+
+    // 定时轮询发送消息到 binding 为 Processor.OUTPUT
+    @Bean
+    @InboundChannelAdapter(value = Processor.OUTPUT, poller = @Poller(fixedDelay = "30", maxMessagesPerPoll = "1"))
     public MessageSource<String> timerMessageSource() {
         return () -> MessageBuilder.withPayload("短消息-" + new Date()).build();
     }
