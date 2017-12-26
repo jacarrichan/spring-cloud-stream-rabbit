@@ -65,7 +65,9 @@ docker run -d --name rabbitmq --publish 5671:5671 --publish 5672:5672 --publish 
 
 ### 确认运行
 
-浏览器访问  http://192.168.247.131:15672/
+浏览器访问rabbitmq管理页面  http://192.168.247.131:15672/
 
+###  创建vhost
+在上述管理页面的vhost选项卡中创建name为dev 的vhost
 
 
